@@ -1,6 +1,6 @@
 <?php
 require 'config/config.php';
-require 'config/function.php';
+require 'config/functions.php';
 
 
 if(isset($_SESSION['user_id'])){
