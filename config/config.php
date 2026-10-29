@@ -10,7 +10,7 @@ require_once(__DIR__ . '/../functions/redirect.php');
 define('BASE_URL','http://localhost/IT34A-1');
 
 define('DB_HOST','localhost');
-define('DB_NAME','it34a_lab_db');
+define('DB_NAME','it3a_lab_db');
 define('DB_USER','root');
 define('DB_PASS','');
 
