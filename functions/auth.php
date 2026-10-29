@@ -45,8 +45,11 @@ function requireLogin(){
     if(!isset($_SESSION['user_id'])){
         header('Location: ' . BASE_URL . 'index.php');
         exit;
+    }
+        checkSessionTimeout();
+
     };
-}
+
 
     function requireRole($role){
         requireLogin();
@@ -55,6 +58,6 @@ function requireLogin(){
             http_response_code(403);
             die('Access Denied');
         }
-    }
+    };
 
 ?>
