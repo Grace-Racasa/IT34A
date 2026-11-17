@@ -27,7 +27,7 @@ function requireCsrfToken() {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         return;
         }
-    
+
     $token = $_POST['csrf_token'] ?? '';
 
     if (!verifyCsrfToken($token)) {
