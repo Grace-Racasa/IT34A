@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <h1>User Login</h1>
     <form method="POST">
-        <!-- <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">  -->
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>"> 
         <label>Username or email</label>
         <input type = "text"
                 name = "login"

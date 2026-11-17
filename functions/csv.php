@@ -11,7 +11,7 @@ function exportCsv(string $filename, array $headers, array $rows):void{
 	header('Content-Type: text/csv; charset=utf8');
 	header('Content-Disposition: attachment; filename="'. $safeName .'"');
 	header('Pragma: no-cache');
-	header('Expires:0);
+	header('Expires:0');
 	
 	$out = fopen('php://output','w');
 	
