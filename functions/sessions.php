@@ -1,8 +1,8 @@
-<?php 
+<?php
 
-// Start user session
+// Start user session 
 function startUserSession($pdo){
-    
+
     if(!isset($_SESSION['user_id'])){
         return false;
     }
@@ -13,20 +13,26 @@ function startUserSession($pdo){
         INSERT INTO user_sessions(
             user_id,
             session_start
-        ) VALUES (
+        )
+        VALUES(
             :user_id,
             NOW()
         )
-    
     ");
 
     $stmt->execute([
-        ':user_id' => $user_id
+        'user_id' => $user_id
     ]);
 
     return $pdo->lastInsertId();
 }
+
+// End user session
 function endUserSession($pdo){
+
+    if(!isset($_SESSION['session_id'])){
+        return false;
+    }
 
     $session_id = $_SESSION['session_id'];
 
@@ -45,12 +51,12 @@ function endUserSession($pdo){
     return $stmt->execute([
         'session_id' => $session_id
     ]);
-
 }
 
-// Function check if user session is active
-function hasActiveSession($pdo, $user_id){
 
+// Function check user for active session
+function hasActiveUserSession($pdo,$user_id){
+    
     $stmt = $pdo->prepare("
         SELECT session_id
         FROM user_sessions
@@ -60,36 +66,36 @@ function hasActiveSession($pdo, $user_id){
     ");
 
     $stmt->execute([
-        ':user_id' => $user_id
+        'user_id' => $user_id
     ]);
-
+ 
     return (bool) $stmt->fetchColumn();
 }
+
 
 // Session Timeout
 function checkSessionTimeout(){
     global $pdo;
 
     // Timeout Settings
-    // 10 sec. for testing
-    // 1800 sec. = 30 min. session timeout
-
-    $timeout = 10;
+    // 10s for testing
+    // 1800s for 30min session time
+    $timeout = 1800;
 
     // Check last activity
     if(isset($_SESSION['last_activity'])){
-        
+
         $inactive = time() - $_SESSION['last_activity'];
 
         if($inactive >= $timeout){
-            // End user session
+            // End database session
             endUserSession($pdo);
 
-            // Destroy PHP session
+            // Destroy PHP Session
             session_unset();
             session_destroy();
 
-            // Redirect to login page
+            // Redirect
             header(
                 'Location: '.
                 BASE_URL .
@@ -97,17 +103,12 @@ function checkSessionTimeout(){
 
             );
 
-            exit();
-
+            exit;
         }
     }
 
-    // Update last activity 
+    // Update Last Activity
     $_SESSION['last_activity'] = time();
-
-
 }
+
 ?>
-
-
-
