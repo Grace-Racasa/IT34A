@@ -1,20 +1,22 @@
 <?php
-require_once __DIR__ . '/../../config/config.php';
+require_once '../../config/config.php';
 
-if (isset($_SESSION['user_id'])) {
+if(isset($_SESSION['user_id'])){
     logActivity(
         $pdo,
         $_SESSION['user_id'],
         $_SESSION['user_email'],
-        'logout',
-        'success'
+        'logout','
+        success'
     );
 }
+
 endUserSession($pdo);
 
 $_SESSION = [];
+
 session_destroy();
 
-header('Location: ' . BASE_URL . '/index.php');
-exit;
+header('Location:' . BASE_URL . '/index.php');
+exit
 ?>
